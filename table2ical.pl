@@ -48,8 +48,9 @@ sub parse_table {
 	my $calendar;
 
 	foreach my $tr ($tree->look_down('_tag', 'tr')) {
-		my @cols = $tr->look_down('_tag','td');
-		warn "# $#cols cols\n";
+		my $nr = scalar $tr->content_list;
+		my @cols = $tr->look_down('_tag', qr/(td|th)/ );
+		warn "# $#cols [$nr] cols ",dump( map { $_->as_text } @cols );
 		next if $#cols < 0;
 
 		if ( $#cols == 0 ) {
@@ -61,7 +62,7 @@ sub parse_table {
 					dtstart => dt_hhmm( $1, $2 ), dtend => dt_hhmm( $3, $4 ),
 				) foreach @cols;
 			} else {
-				warn "SKIP ", dump( map { $_->as_text } @cols );
+				warn "SKIP";
 			}
 		}
 	}
