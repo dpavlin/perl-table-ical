@@ -3,15 +3,15 @@
 use warnings;
 use strict;
 
-#use LWP::Simple;
-#mirror('http://www.open.hr/dc2010/program.php','program.html');
+use LWP::Simple;
+mirror('http://www.open.hr/dc2010/program.php','program.html');
 
 use Data::Dump qw(dump);
 
 use HTML::TreeBuilder;
 
 my $tree = HTML::TreeBuilder->new;
-$tree->parse_file('program.html.utf8');
+$tree->parse_file('program.html');
 
 use Data::ICal;
 use Data::ICal::Entry::Event;
